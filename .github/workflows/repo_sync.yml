@@ -1,0 +1,30 @@
+name: A🔄自动同步🔄A
+on:
+#  schedule:
+#    - cron: '0 * * * Fri'
+  workflow_dispatch:
+  watch:
+    types: started
+  repository_dispatch:
+    types: repo-sync
+jobs:
+  repo-sync:
+    env:
+      PAT: ${{ github.event.client_payload.PAT || secrets.PAT }} 
+      #此处PAT需要申请，Developer setting ，然后选择 Personal access tokens(点击快捷到达指定页面) 来生成一个 token，把 repo和workflow 两部分勾上即可。
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - name: 开始🔄自动同步🔄
+        uses: repo-sync/github-sync@v2
+        if: env.PAT
+        with:
+          source_repo: "https://github.com/ACL4SSR/ACL4SSR.git"
+          source_branch: "master"
+          destination_branch: "master"
+          github_token: ${{ github.event.client_payload.PAT || secrets.PAT }}
+
