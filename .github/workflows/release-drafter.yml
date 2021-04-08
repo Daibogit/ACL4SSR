@@ -20,7 +20,7 @@ jobs:
         id: create_release
         uses: release-drafter/release-drafter@v5
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT }}
         with:
           config-name: release-config.yml
 
@@ -33,7 +33,7 @@ jobs:
       - name: Build it and upload
         uses: ibuler/action-build-upload@master
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PAT }}
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.PAT }}
           upload_url: ${{ needs.create-realese.outputs.upload_url }} 
