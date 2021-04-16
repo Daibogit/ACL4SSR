@@ -1,6 +1,6 @@
 name: 自动同步
 on:
- schedule:
+  schedule:
   - cron: '0 * * * 6L'
   workflow_dispatch:
   watch:
