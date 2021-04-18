@@ -1,7 +1,7 @@
 name: 自动同步
 on:
-  schedule:
-    - cron: '40 0 * * 6L'
+  #schedule:
+    #- cron: '40 0 * * 6L'
   workflow_dispatch:
   watch:
     types: started
